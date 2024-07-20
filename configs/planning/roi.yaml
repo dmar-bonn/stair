@@ -1,0 +1,17 @@
+
+planner_type: roi
+initial_type: fixed
+num_candidates: 100
+importance_sampling: True
+cluster_top_k: 10
+candidate_ratio: 0.5
+exploration_weight: 0.1
+
+util_weight: 0.2
+downscale_planning: 0.1
+select_n_view: 1
+top_k_unc_init: 4000
+top_k_unc_min: 500
+shrink_factor: 0.9
+iteration_per_step: 500
+map_update_for_planning: True

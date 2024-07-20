@@ -1,0 +1,11 @@
+planner_type: uncertainty_target_wo
+initial_type: fixed
+num_candidates: 200
+importance_sampling: True
+cluster_top_k: 10
+candidate_ratio: 0.5
+exploration_weight: 0.0
+
+downscale_planning: 0.2
+iteration_per_step: 200
+map_update_for_planning: True

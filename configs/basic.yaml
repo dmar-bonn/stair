@@ -1,0 +1,30 @@
+# gui setting
+W_gui: 400
+H_gui: 400
+radius_gui: 2
+fovy_gui: 90
+fovx_gui: 90
+max_spp: 64
+
+# simulator
+min_height: 0.01
+radius: 2.0
+camera_type: rgbd
+rgb_noise: 0 # std of rgb measurment
+depth_noise: 0 # std of depth measurment
+
+# experiment
+visualize_measurement: True # for debugging
+record_path: ./experiment
+exp_name: test
+target_class_id: [4]
+save_scene: False # save whole scene
+n_iters: 5000 # maximal training step
+verbose: True
+save_list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+online_experiment: True
+
+# pretrained semantic segmentation model
+use_pseudo_label: False
+ckpt_path: segmentation/pretrained/unet/478.ckpt
+class_num: 7

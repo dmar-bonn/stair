@@ -1,0 +1,10 @@
+__pycache__
+log
+.vscode
+test.py
+test/
+experiment/
+*.npy
+*.png
+!/media/*.png
+

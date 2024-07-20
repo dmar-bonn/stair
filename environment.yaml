@@ -1,0 +1,54 @@
+# build: conda env create -f environment.yaml
+# update: conda env update -f environment.yaml
+name: stair
+channels:
+  - pytorch
+  - conda-forge
+  - anaconda
+  - defaults
+dependencies:
+  - python==3.7.2
+  - cffi
+  - cython
+  - ros-rospy
+  - ros-cv-bridge
+  - ros-sensor-msgs
+  - ros-geometry-msgs
+  - ros-rosgraph
+  - cudatoolkit=10.2
+  - pillow
+  - wheel
+  - pip
+  - pip:
+      - tqdm
+      - ipdb
+      - ipython
+      - ipython-genutils
+      - jedi
+      - trimesh
+      - scikit-image
+      - opencv-python
+      - configargparse
+      - lpips
+      - tensorboard
+      - imageio
+      - imageio-ffmpeg
+      - kornia
+      - matplotlib
+      - open3d==0.16.0
+      - scipy
+      - click
+      - torchmetrics==0.11.4
+      - torchinfo
+      - numpy
+      - seaborn
+      - pandas
+      - dearpygui
+      - plyfile
+      - dotmap
+      - --extra-index-url https://download.pytorch.org/whl/cu113
+      - torch==1.12.1+cu113 
+      - torchvision==0.13.1
+      - pytorch-lightning==1.8
+      - urllib3==1.26.6
+  

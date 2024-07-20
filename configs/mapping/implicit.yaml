@@ -1,0 +1,86 @@
+mapper_type: implicit
+
+# constant training setup
+model_type: densevoxel
+batch_size: 8000
+white_bg: True
+require_depth: True
+buffer_sample_ratio: 0.5
+active_buffer_len: 400000
+near_far: [0.2, 3.5]
+n_samples_max: 500 # maximal samples per ray
+occupancy_thres: 0.01
+raymarch_weight_thres: 1.0e-6
+density_shift: -6
+distance_scale: 1
+aabb: [[-1.5, -1.5, -1.5], [1.5, 1.5, 1.5]] 
+fea2dense_act: softplus
+use_gradientscaler: True
+level_set: 0.01
+mesh_resolution: 32
+
+# configurable training setup
+###### online coarse stage training for planning #####
+coarse_stage:
+  step_ratio: 0.5
+  lr_volume: 0.05
+  lr_mlp: 0.02
+  lr_factor_spatial: 1
+  lr_factor_mlp: 1
+  rgb_reg_weight: 1.0 
+  semantic_reg_weight: 0 
+  max_unknown_weight: 0 
+  density_unc_weight: 0.05 
+  depth_weight: 1.0 
+  tv_weight_semantic: 0 
+
+  # model setup
+  n_voxel: 2097152 #128**3
+  rgb_dim: 6
+  density_dim: 3
+  semantic_dim: 7
+  shadingmode_rgb: MLP
+  shadingmode_density: MLP
+  shadingmode_semantic: IF
+  pos_pe: 3
+  view_pe: 0
+  fea_pe: 0
+  feature_rgb: 16
+  feature_semantic: 0
+  use_xyz: False
+  use_view: False
+  random_init: False
+  sampling_random_level: 0.2
+
+###### offline fine stage training for reconstruction #####
+fine_stage:
+  step_ratio: 0.5
+  lr_volume: 0.01
+  lr_mlp: 0.05
+  lr_factor: 1 #0.999
+  rgb_reg_weight: 0.2
+  semantic_reg_weight:  0.2 
+  max_unknown_weight: 0.2
+  density_unc_weight: 0.2 #0.2 # .01
+  depth_weight: 0.5 # 5
+  # tv_weight_density: 0 # 1.0e-5
+  # tv_weight_rgb: 0
+  tv_weight_semantic: 1.0e-4
+
+  # model setup
+  n_voxel: 2097152 # 128**3
+  rgb_dim: 6
+  density_dim: 3
+  semantic_dim: 7
+  shadingmode_rgb: MLP
+  shadingmode_density: IF
+  shadingmode_semantic: IF
+  pos_pe: 4
+  view_pe: 0
+  fea_pe: 0
+  feature_rgb: 16
+  feature_semantic: 8
+  use_xyz: False
+  use_view: False
+  random_init: False
+  sampling_random_level: 0.2

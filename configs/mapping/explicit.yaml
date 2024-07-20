@@ -1,0 +1,6 @@
+mapper_type: explicit
+
+aabb: [[-1.5, -1.5, -1.5], [1.5, 1.5, 1.5]] 
+map_size: [3, 3, 3]
+voxel_resolution: [128, 128, 128]
+world_origin: [1.5, 1.5, 1.5]

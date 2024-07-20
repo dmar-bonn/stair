@@ -1,0 +1,5 @@
+planner_type: max_distance
+initial_type: fixed
+map_update_for_planning: True
+iteration_per_step: 200
+num_candidates: 200
