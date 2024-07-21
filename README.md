@@ -36,6 +36,8 @@ docker build . -t shapenet-simulator:v0
 git clone https://github.com/dmar-bonn/stair
 cd stair
 conda env create -f environment.yaml
+conda activate arsenal
+python setup.py build_ext --inplace
 ```
 6. Copy the extracted scene data (scene1, scene2 ....) in step 4 also to `stair/test_data` for evaluation purpose. 
 
