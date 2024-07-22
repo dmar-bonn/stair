@@ -61,8 +61,6 @@ class MeshExtractor(object):
         """
         # self.model.eval()
         stats_dict = {}
-        # self.threshold = np.log(self.threshold) - np.log(1.0 - self.threshold)
-        # self.threshold = 0.5
         t0 = time.time()
         # Compute bounding box size
         self.box_size = aabb[1] - aabb[0]  #  + self.padding
@@ -141,7 +139,6 @@ class MeshExtractor(object):
         """
         # Some short hands
         n_x, n_y, n_z = occ_hat.shape
-        # box_size = 2 + self.padding
         t0 = time.time()
         occ_hat_padded = np.pad(occ_hat, 1, "constant", constant_values=-1e6)
 
@@ -150,11 +147,8 @@ class MeshExtractor(object):
         stats_dict["time (marching cubes)"] = time.time() - t0
         # Strange behaviour in libmcubes: vertices are shifted by 0.5
         vertices -= 0.5
-        # Undo padding
-        # vertices -= 1
         # Normalize to bounding box
         vertices /= np.array([n_x - 1, n_y - 1, n_z - 1])
-        # vertices /= np.array([n_x, n_y, n_z])
         vertices = self.box_size.cpu().numpy() * (vertices - 0.5)
 
         # Create mesh

@@ -373,15 +373,15 @@ class SemanticNeRF(torch.nn.Module):
         max_unknown_map = torch.zeros(
             xyz_sampled.shape[0], device=xyz_sampled.device
         )  # (B)
-        behind_surface_mask = (trans < 0.001) * ray_valid
-        if behind_surface_mask.any():
-            valid_unknow_mask = torch.sum(behind_surface_mask, dim=-1).bool()
-            max_unknown_map[valid_unknow_mask] = (
-                torch.sum(torch.abs(occ - 0.5) * behind_surface_mask, dim=-1)[
-                    valid_unknow_mask
-                ]
-                / torch.sum(behind_surface_mask, dim=-1)[valid_unknow_mask]
-            )
+        # behind_surface_mask = (trans < 0.001) * ray_valid
+        # if behind_surface_mask.any():
+        #     valid_unknow_mask = torch.sum(behind_surface_mask, dim=-1).bool()
+        # max_unknown_map[valid_unknow_mask] = (
+        #     torch.sum(torch.abs(occ - 0.5) * behind_surface_mask, dim=-1)[
+        #         valid_unknow_mask
+        #     ]
+        #     / torch.sum(behind_surface_mask, dim=-1)[valid_unknow_mask]
+        # )
 
         acc_map = torch.sum(weight, -1).clamp(0, 1)
 

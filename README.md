@@ -67,7 +67,7 @@ python plan.py --config <planner type> implicit --target_class_id <class id> --g
 Available values for the command line flag:
 | Flag  | Available value    |
 |----------------------------|---------------|
-| planner type| uncertainty_target, uncertainty_all, coverage, max_distance, random|
+| planner type| uncertainty_target, uncertainty_all, coverage, max_distance, uniform|
 | class id    | 1: car, 2: chair, 3: table, 4: sofa, 5: airplane, 6: camera|
 
 Note: you can also choose target semantic classes in GUI.
@@ -82,7 +82,7 @@ Click "next step" to move to the next view point based on the selected planner t
 
 ## Experiments and Evaluation
 ```
-python plan.py --config <planner type> implicit  --exp_name <experiment name>/<scene id>  --target_class_id <target id>
+python plan.py --config <planner type> implicit  --exp_name <experiment name>/<scene id>  --target_class_id <target id> --gui
 python eval_nerf.py --test_path test_data/<scene id> --exp_path experiment/<experiment name>/<scene id>/<planner type>
 python eval_mesh.py --test_path test_data/<scene id> --exp_path experiment/<experiment name>/<scene id>/<planner type>
 ```
