@@ -7,11 +7,8 @@ class UncertaintyAllPlanner(PlannerBase):
     def __init__(self, args, device):
         super(UncertaintyAllPlanner, self).__init__(args, device)
         self.num_candidates = args.num_candidates
-        # self.view_change = args.view_change
-        # self.util_weight = args.util_weight
         self.downscale_planning = args.downscale_planning
         self.rendering_intrinsics = np.array([*self.focal, self.W // 2, self.H // 2])
-        # self.iteration_per_step = args.iteration_per_step
         self.importance_sampling = args.importance_sampling
         self.candidate_ratio = args.candidate_ratio
         self.cluster_top_k = args.cluster_top_k
@@ -66,9 +63,6 @@ class UncertaintyAllPlanner(PlannerBase):
             view_list = np.concatenate((view_list, local_view_list), axis=0)
 
         return self.select_nbv(utility_list, view_list)
-        # nbv_indeces = np.argsort(utility_list)[::-1][: self.select_n_view]
-        # nbvs = view_list[nbv_indeces]
-        # return nbvs
 
     def select_nbv(self, utitlity_list, view_list):
         nbv_indeces = np.argsort(utitlity_list)[::-1]
@@ -118,67 +112,7 @@ class UncertaintyAllPlanner(PlannerBase):
     def cal_utility(self, num, depth_unc, semantic_unc, semantic, object_ratio):
         depth_unc = depth_unc.reshape(num, -1)
         semantic_unc = semantic_unc.reshape(num, -1)
-
-        # print(depth_unc.shape)
-        # semantic = semantic.reshape(self.num_candidates, -1)
-        # semantic_mask = semantic == self.planning_target_id
-        # outlier_mask = np.sum(semantic_mask, axis=-1) < 400
-        # depth_unc[outlier_mask] = 0 * depth_unc[outlier_mask]
-
-        # depth_unc_mask = depth_unc > 0
-        # semantic_unc_mask = semantic_unc > 0
-        # exploration_factor = np.mean(depth_unc, where=depth_unc_mask, axis=-1)
         depth_utility = np.sum(depth_unc, axis=-1)
         utility_list = depth_utility
-        # semantic_utility = np.sum(semantic_unc, where=semantic_unc_mask, axis=-1)
-        # utility_list = (depth_utility + semantic_utility) / object_ratio
-        # print(object_ratio)
-        # utility_list = depth_utility + exploration_factor * semantic_utility
-        # semantic_unc_mask = semantic_unc > 0.01
-
-        # depth_unc_sum = np.sum(depth_unc, axis=-1)
-        # exploration_factor = np.mean(depth_unc, where=depth_unc_mask, axis=-1)
-
-        # semantic_unc_mean = np.mean(semantic_unc, where=semantic_unc_mask, axis=-1)
-        # utility_list = (1 - semantic_unc_mean) * depth_unc_sum
-        # total_unc = 1.5 * depth_unc + semantic_unc
-        # print("unc:", np.max(total_unc, axis=-1))
-        # total_unc = depth_unc
-        # utility_list = np.mean(total_unc, axis=1)
-        # total_unc_mask = total_unc > 0.01
-        # utility_list = np.sum(total_unc, where=total_unc_mask, axis=1)
-        # print(utility_list)
-
-        # depth_unc = depth_unc.reshape(self.num_candidates, -1)
-        # # obj_weight = 1 - depth_unc
-        # # depth_unc_mask = depth_unc > 0.1
-        # depth_unc = np.sort(depth_unc, axis=-1)[:, -self.top_k_unc :]
-        # depth_score = np.mean(depth_unc, axis=-1)
-        # # depth_score = np.nan_to_num(
-        # #     np.mean(depth_unc, axis=1, where=depth_unc_mask), copy=False
-        # # )
-        # # depth_score = np.nan_to_num(np.mean(depth_unc, axis=1), copy=False)
-
-        # semantic_unc = semantic_unc.reshape(self.num_candidates, -1)
-        # # semantic_unc = obj_weight * semantic_unc
-        # # semantic_unc_mask = semantic_unc > 0.1
-        # semantic_unc = np.sort(semantic_unc, axis=-1)[:, -self.top_k_unc :]
-        # # print(semantic_unc.shape)
-        # semantic_score = np.mean(semantic_unc, axis=-1)
-        # # semantic_score = np.nan_to_num(
-        # #     np.mean(semantic_unc, axis=1, where=semantic_unc_mask), copy=False
-        # # )
-        # # depth_score = np.mean(depth_unc, axis=1)
-        # # semantic_score = np.mean(semantic_unc, axis=1)
-
-        # if self.verbose:
-        #     print(depth_score, semantic_score)
-        # utility_list = (
-        #     self.util_weight * depth_score + (1 - self.util_weight) * semantic_score
-        # )
-        # self.top_k_unc = np.maximum(
-        #     self.top_k_unc_min,
-        #     np.floor(self.shrink_factor * self.top_k_unc).astype(int),
-        # )
 
         return utility_list

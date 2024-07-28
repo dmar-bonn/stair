@@ -153,7 +153,6 @@ def main(scene_path):
     fig, ax = plt.subplots()
     plot_ax(ax, "F1-Score", total_df)
     plt.savefig(f"{scene_path}/f1_score.{IMG_FORMAT}", bbox_inches="tight")
-    # plt.clf()
 
     plt.rcParams["figure.figsize"] = [5, 15]
     label_instances, label_names = ax.get_legend_handles_labels()
@@ -186,7 +185,7 @@ def plot_ax(ax, metric, dataframe):
         linewidth=PLOT_LINE_WIDTH,
         ax=ax,
         errorbar=("sd", 1),
-        palette=["C2", "C5", "C0", "C3", "C1"],
+        palette=["C2", "C0", "C3", "C7", "C5"],
         dashes=["", "", "", ""],
     )
 

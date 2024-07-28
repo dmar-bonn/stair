@@ -3,7 +3,6 @@ from .planner.coverage import CoveragePlanner
 from .planner.max_distance import MaxDistancePlanner
 from .planner.uncertainty_all import UncertaintyAllPlanner
 from .planner.uncertainty_target import UncertaintyTargetPlanner
-from .planner.uncertainty_target_wo import UncertaintyTargetPlannerWo
 from .planner.roi import ROIPlanner
 
 
@@ -18,8 +17,6 @@ def get_planner(args, device):
         return MaxDistancePlanner(args, device)
     elif planner_type == "uncertainty_target":
         return UncertaintyTargetPlanner(args, device)
-    elif planner_type == "uncertainty_target_wo":
-        return UncertaintyTargetPlannerWo(args, device)
     elif planner_type == "uncertainty_all":
         return UncertaintyAllPlanner(args, device)
     elif planner_type == "roi":

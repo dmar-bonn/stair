@@ -90,7 +90,12 @@ where `<experiment name>` is the name defined by user, e.g., experiment1; `<scen
 
 One example for active reconstruction results can be acquired by running:
 ```
-./run_example.sh
+./run_example.sh <scene id> <run num> <list of target id>
+```
+
+for example :
+```
+./run_example.sh scene1 5 "1"
 ```
 
 ## Acknowledgements
