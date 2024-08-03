@@ -14,7 +14,9 @@ def arg_parser(mode=None):
     parser.add_argument(
         "--random_seed", type=int, default=20211202, help="random seed number"
     )
-    parser.add_argument("--exp_name", default="test", type=str, help="experiment name")
+    parser.add_argument(
+        "--exp_path", default="./experiment", type=str, help="path to save experiment"
+    )
     parser.add_argument("--exp_id", default=None, type=int, help="experiment id")
     parser.add_argument("--batch_size", default=8000, type=int, help="ray batch size")
 

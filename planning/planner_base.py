@@ -20,15 +20,16 @@ class PlannerBase:
         self.args = args
         self.device = device
         self.verbose = args.verbose
-        self.record_path = os.path.join(
-            args.record_path,
-            args.exp_name,
-            f"{args.planner_type}",
-            (
-                str(args.exp_id)
-                if args.exp_id is not None
-                else datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-            ),
+        self.record_path = os.path.expanduser(
+            os.path.join(
+                args.exp_path,
+                f"{args.planner_type}",
+                (
+                    str(args.exp_id)
+                    if args.exp_id is not None
+                    else datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+                ),
+            )
         )
         self.visualize_measurement = args.visualize_measurement
         self.H_gui = args.H_gui

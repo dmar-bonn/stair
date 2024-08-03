@@ -27,20 +27,27 @@ cd shapenet_simulator
 docker build . -t shapenet-simulator:v0
 ```
 2. Install  Nvidia runtime support from [here](https://github.com/NVIDIA/nvidia-container-toolkit). 
-3. Download the shapenet models used in our experiment [here](https://drive.google.com/file/d/14M0Q6YNBfL0f_ACbrxOcMvuGTHBLR66r/view?usp=sharing) and extract them to `shapenet_simulator/src/simulator/models`.
-4. Download the scene data [here](https://drive.google.com/file/d/1xtQjAJ_dBdpFobOzMEAXPNRldPaCOlip/view?usp=sharing) and extract them to `shapenet_simulator/src/simulator/scenes`.
+3. Download the shapenet models used in our experiment [here](https://drive.google.com/file/d/14M0Q6YNBfL0f_ACbrxOcMvuGTHBLR66r/view?usp=sharing) and the scene data [here](https://drive.google.com/file/d/1xtQjAJ_dBdpFobOzMEAXPNRldPaCOlip/view?usp=sharing) to `shapenet_simulator/src/simulator`.
+```
+cd src/simulator
+unzip models.zip -d models
+unzip scenes.zip -d scenes
+```
 (Optional) for more advanced usages, e.g, generate new scenes and test data, please follow the [instruction](https://github.com/liren-jin/shapenet_simulator).
 
-5. Set up STAIR repo:
+4. Set up STAIR repo:
 ```commandline
 git clone https://github.com/dmar-bonn/stair
 cd stair
 conda env create -f environment.yaml
-conda activate arsenal
+conda activate stair
 python setup.py build_ext --inplace
 ```
-6. Copy the extracted scene data (scene1, scene2 ....) in step 4 also to `stair/test_data` for evaluation purpose. 
+5. Copy the extracted scene data (scene1, scene2 ....) in step 4 also to `stair/test_data` for evaluation purpose. 
 
+```
+cp -r <path to shapenet-simulator>/src/simulatr/scenes/* <path to stair>/test_data
+```
 ## Basic Usage
 In one terminal, in the shapenet_simulator folder, start the simulator:
 ```
@@ -82,20 +89,20 @@ Click "next step" to move to the next view point based on the selected planner t
 
 ## Experiments and Evaluation
 ```
-python plan.py --config <planner type> implicit  --exp_name <experiment name>/<scene id>  --target_class_id <target id> --gui
-python eval_nerf.py --test_path test_data/<scene id> --exp_path experiment/<experiment name>/<scene id>/<planner type>
-python eval_mesh.py --test_path test_data/<scene id> --exp_path experiment/<experiment name>/<scene id>/<planner type>
+python plan.py --config <planner type> implicit  --exp_path <experiment folder>/<scene id>  --target_class_id <target id> --gui
+python eval_nerf.py --test_path test_data/<scene id> --exp_path <experiment folder>/<scene id>/<planner type>
+python eval_mesh.py --test_path test_data/<scene id> --exp_path <experiment folder>/<scene id>/<planner type>
 ```
-where `<experiment name>` is the name defined by user, e.g., experiment1; `<scene id>` is the scene name for the experiment, e.g., scene1.
+where `<experiment folder>` is the folder for saving experimental data, default is "./experiment"; `<scene id>` is the scene name for the experiment, e.g., scene1.
 
 One example for active reconstruction results can be acquired by running:
 ```
-./run_example.sh <scene id> <run num> <list of target id>
+./run_example.sh <scene id> <run num> <list of target id> <experiment path>
 ```
 
 for example :
 ```
-./run_example.sh scene1 5 "1"
+./run_example.sh scene1 5 "1" "./test"
 ```
 
 ## Acknowledgements
